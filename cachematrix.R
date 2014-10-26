@@ -23,9 +23,9 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-##This funtion will evaluate if two matricies are identical.
+##This function will evaluate if two matricies are identical.
 
-matequal <- function(mat1, mat2)
+matEqual <- function(mat1, mat2)
      is.matrix(mat1) && is.matrix(mat2) && dim(mat1) == dim(mat2) && all(mat1 == mat2)
 
 ## Return a matrix that is the inverse of 'x' but first check if the matrix has changed.
@@ -33,8 +33,8 @@ matequal <- function(mat1, mat2)
 
 cacheSolve <- function(y, ...) {
      mat1 <- y
-     mat2 <- x$getMat()
-     if (matequal(mat1, mat2)) {
+     mat2 <- y$getMat()
+     if (!matEqual(mat1, mat2)) {
           message("The matrix has changed")
           
  ##since the matrix changed, we must compute the inverse of the new matrix and return it.         
@@ -42,8 +42,8 @@ cacheSolve <- function(y, ...) {
           inverse <- solve(mat1, ...)
           return(inverse)
      }
-## Return a matrix that is the inverse of x using elements of the makeCasheMatrix function
-     inverse <- x$getInv()
+## Return a matrix that is the inverse of x using elements of the makeCacheMatrix function
+     inverse <- y$getInv()
      if(!is.null(inverse)) {
           message("getting cached data")
           return(inverse)
